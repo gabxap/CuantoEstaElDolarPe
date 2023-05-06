@@ -4,12 +4,14 @@
 🤖 Utilizes web scraping techniques to extract real-time exchange rate data from trusted sources and also to manipulate the Instagram Web App.<br />
 🔥 Was tested on an Instagram Account on Summer 2022 <a href="https://www.instagram.com/cuantoestaeldolarpe/">@cuantoestaeldolarpe</a>.
 
-## Base Image with Instagram Story Size
+## ⭐ Base Image with Instagram Story Size
 
 <img src="images/bases/stories/only_one.png" width="300"/>
 
-## Image edited with the PIL library for python with the buy and sell dollar data
+## ⭐ Image edited with the PIL library for python with the buy and sell dollar data
 
 <img src="images/outputs/only_one.png" width="300"/>
 
-[![Watch the video](https://img.youtube.com/vi/T-D1KVIuvjA/maxresdefault.jpg)](https://youtu.be/T-D1KVIuvjA)
+## ⭐ Demo of script running on a Raspberry PI 4. Generation of the image and further uploading to Instagram. (Click to see)
+
+[![Watch the video](https://img.youtube.com/vi/mqlkYZXAklk/maxresdefault.jpg)](https://youtu.be/mqlkYZXAklk)
