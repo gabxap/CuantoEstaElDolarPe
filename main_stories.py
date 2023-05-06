@@ -16,6 +16,42 @@ import math
 
 pyautogui.FAILSAFE = False
 
+def generate_image_1():
+    today = datetime.today()
+    today_text = today.strftime("%d/%m/%Y %I:%M %p")
+
+    image = Image.open("images/bases/stories/1.png")
+    draw = ImageDraw.Draw(image)
+
+    font = ImageFont.truetype("fonts/Montserrat-Regular.ttf", 40)
+
+    draw.text((112, 1510), "Actualizado " + today_text, font=font)
+
+    image.save("images/outputs/1.png")
+
+
+def generate_image_venta(venta):
+    image = Image.open("images/bases/stories/2.png")
+    draw = ImageDraw.Draw(image)
+
+    font = ImageFont.truetype("fonts/Montserrat-Bold.ttf", 65)
+
+    draw.text((365, 980), f"{venta[0]} Soles", font=font)
+    draw.text((370, 1385), f"{venta[1]} Soles", font=font)
+
+    image.save("images/outputs/2.png")
+
+
+def generate_image_compra(compra):
+    image = Image.open("images/bases/stories/3.png")
+    draw = ImageDraw.Draw(image)
+
+    font = ImageFont.truetype("fonts/Montserrat-Bold.ttf", 65)
+
+    draw.text((365, 980), f"{compra[0]} Soles", font=font)
+    draw.text((370, 1385), f"{compra[1]} Soles", font=font)
+
+    image.save("images/outputs/3.png")
 
 def generate_image(venta, compra):
     today = datetime.today()
@@ -44,15 +80,20 @@ def get_data():
     precio_venta = []
     site = requests.get('https://cuantoestaeldolar.pe/cambio-de-dolar-online', headers={'Referer' : 'https://cuantoestaeldolar.pe'})
     soup = BeautifulSoup(site.content, 'html.parser')
-    table = soup.find_all("div", {"class": "wrapper-table block_price_d pb-b pb-0"})[0]
-    data_venta = table.find_all("div", {"class": "td tb_dollar_venta"})
-    data_compra = table.find_all("div", {"class": "td tb_dollar_compra"})
-    data_venta.pop(0)
-    data_compra.pop(0)
-    for i in range(2):
-       precio_venta.append("{:.2f}".format(round_half_up(float(data_venta[i].text.strip().replace('S/.', '')))))
-       precio_compra.append("{:.2f}".format(round_half_up(float(data_compra[i].text.strip().replace('$', '')))))
-    
+    table = soup.find_all("div", {"class": "Quotation_root__MlWtc md:mt-0 md:mr-6"})[0]
+    all_ps = table.find_all("p", {"class": "ValueQuotation_text___mR_0"})
+    precio_compra_sunat = "{:.2f}".format(round_half_up(float(all_ps[0].text)))
+    precio_venta_sunat = "{:.2f}".format(round_half_up(float(all_ps[1].text)))
+    precio_compra_calle = "{:.2f}".format(round_half_up(float(all_ps[2].text)))
+    precio_venta_calle = "{:.2f}".format(round_half_up(float(all_ps[3].text)))
+
+    print(precio_compra_sunat)    
+    print(precio_venta_sunat)    
+    print(precio_compra_calle)    
+    print(precio_venta_calle)    
+    precio_venta = [precio_venta_sunat, precio_venta_calle]
+    precio_compra = [precio_compra_sunat, precio_compra_calle]
+   
     return [precio_venta, precio_compra]
 
 
@@ -68,11 +109,15 @@ def upload_story(number):
     driver = webdriver.Chrome(options=options, service=Service('/home/gabriel/Desktop/chromedriver'))
     driver.get('https://www.instagram.com')
     time.sleep(5)
-    pyautogui.click(x=30, y=170)
+    pyautogui.click(x=300, y=180)
+    time.sleep(1)
+    pyautogui.click(x=300, y = 240)
     time.sleep(2)
+    pyautogui.click(x=500, y = 240)
     for i in range(number-1):
         pyautogui.press('down')
     pyautogui.press('enter')
+    print("here")
     time.sleep(10)
     pyautogui.rightClick(x=100, y=200)
     time.sleep(3)
@@ -81,13 +126,14 @@ def upload_story(number):
     pyautogui.hotkey('ctrl', 'shift', 'm')
     time.sleep(10)
     pyautogui.click (x=750, y=850)
-    time.sleep(20)
+    time.sleep(5)
     driver.quit()
     
 def generate_all_and_upload(precios):
     generate_image(precios[0], precios[1])
     upload_story(1)
 
+    
 
 def main():
     precios = []
