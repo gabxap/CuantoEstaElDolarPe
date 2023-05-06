@@ -11,3 +11,5 @@
 ## Image edited with the PIL library for python with the buy and sell dollar data
 
 <img src="images/outputs/only_one.png" width="300"/>
+
+[![Watch the video](https://img.youtube.com/vi/T-D1KVIuvjA/maxresdefault.jpg)](https://youtu.be/T-D1KVIuvjA)
