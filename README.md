@@ -12,7 +12,7 @@
 
 <img src="images/outputs/only_one.png" width="300"/>
 
-## ⭐ Demo of script running on a Raspberry PI 4. Generating of the image and uploading to Instagram. (Click to see)
+## ⭐ Demo of script running on a Raspberry Pi 4. Generating of the image and uploading to Instagram. (Click to see)
 
 [![Watch the video](https://img.youtube.com/vi/mqlkYZXAklk/maxresdefault.jpg)](https://youtu.be/mqlkYZXAklk)
 
